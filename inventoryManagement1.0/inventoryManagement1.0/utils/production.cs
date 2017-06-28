@@ -12,5 +12,6 @@ namespace inventoryManagement1._0.utils
         private int quantity;
         private string date;
         private string batchNum;
+
     }
 }

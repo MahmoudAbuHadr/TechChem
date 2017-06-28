@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Finisar.SQLite;
+using System.IO;
 
 namespace inventoryManagement1._0
 {
@@ -17,44 +19,19 @@ namespace inventoryManagement1._0
             InitializeComponent();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void addMaterialBtn_Click(object sender, EventArgs e)
         {
+            string datasource = Directory.GetCurrentDirectory()+ "techChem";
+            SQLiteConnection sqlite_conn; // Declare the SQLiteConnection-Object
 
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
+            sqlite_conn = new SQLiteConnection(); // Create an instance of the object
+            sqlite_conn.ConnectionString = "Data Source=c:\\test-database.db;Version=3;New=True;Compress=True;"; // Set the ConnectionString
+            sqlite_conn.Open(); // Open the connection. Now you can fire SQL-Queries
         }
     }
 }
