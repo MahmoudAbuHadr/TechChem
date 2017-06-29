@@ -26,12 +26,35 @@ namespace inventoryManagement1._0
 
         private void addMaterialBtn_Click(object sender, EventArgs e)
         {
-            string datasource = Directory.GetCurrentDirectory()+ "techChem";
-            SQLiteConnection sqlite_conn; // Declare the SQLiteConnection-Object
+            var time = DateTime.Now;
+            int F = 0, G = 0, N = 0, L = 0;
+            
+            string dateTimeFormat = "{0}/{1}/{2}";
+            string date = string.Format(dateTimeFormat, time.Year, time.Month, time.Day);
 
-            sqlite_conn = new SQLiteConnection(); // Create an instance of the object
-            sqlite_conn.ConnectionString = "Data Source=c:\\test-database.db;Version=3;New=True;Compress=True;"; // Set the ConnectionString
-            sqlite_conn.Open(); // Open the connection. Now you can fire SQL-Queries
+            if(dataGridMaterialInput.Rows[0].Cells[0].Value !=null) date = dataGridMaterialInput.Rows[0].Cells[0].Value.ToString();
+            if (dataGridMaterialInput.Rows[0].Cells[1].Value != null) F = Convert.ToInt32(dataGridMaterialInput.Rows[0].Cells[1].Value.ToString());
+            if (dataGridMaterialInput.Rows[0].Cells[2].Value != null) G = Convert.ToInt32(dataGridMaterialInput.Rows[0].Cells[2].Value.ToString());
+            if (dataGridMaterialInput.Rows[0].Cells[3].Value != null) N = Convert.ToInt32(dataGridMaterialInput.Rows[0].Cells[3].Value.ToString());
+            if (dataGridMaterialInput.Rows[0].Cells[4].Value != null)  L = Convert.ToInt32(dataGridMaterialInput.Rows[0].Cells[4].Value.ToString());
+
+
+
+
+
+            SQLiteConnection conn; // Declare the SQLiteConnection-Object
+            conn = new SQLiteConnection(); // Create an instance of the object
+            string dataSourcePath = Directory.GetCurrentDirectory() + "\\techChem.db";
+            conn.ConnectionString = "Data Source= " + dataSourcePath + ";Version=3;"; // Set the ConnectionString
+            conn.Open(); // Open the connection. Now you can fire SQL-Queries
+            var sql_cmd = conn.CreateCommand();
+            /*sql_cmd.CommandText = "CREATE TABLE currentInventory ( id INTEGER NOT NULL, F INTEGER, G INTEGER, N INTEGER, L INTEGER, PRIMARY KEY(id) ); CREATE TABLE inventory ( date TEXT NOT NULL UNIQUE, F INTEGER NOT NULL, G INTEGER NOT NULL, N INTEGER NOT NULL, L INTEGER NOT NULL, PRIMARY KEY(date) );CREATE TABLE sales ( date TEXT NOT NULL, batchNo INTEGER NOT NULL UNIQUE, product TEXT NOT NULL, quantity INTEGER NOT NULL, PRIMARY KEY(batchNo) )";
+            sql_cmd.ExecuteNonQuery();*/
+
+            sql_cmd.CommandText = "insert into inventory (date,F,G,N,L) values ( '" + date + "'," + F + "," + G + "," + N + "," + L + ");";
+            sql_cmd.ExecuteNonQuery();
+            conn.Close();
+
         }
     }
 }
