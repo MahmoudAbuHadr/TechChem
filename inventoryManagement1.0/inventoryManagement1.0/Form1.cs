@@ -40,13 +40,17 @@ namespace inventoryManagement1._0
             int N = Convert.ToInt32(reader["N"]);
             int L = Convert.ToInt32(reader["L"]);
             reader.Close();
-            dataGridMaterialView.ReadOnly = false;
+
+
             dataGridMaterialView.Rows[0].Cells[0].Value = Convert.ToString(F);
+            dataGridMaterialView.Rows[0].Cells[1].Value = Convert.ToString(G);
+            dataGridMaterialView.Rows[0].Cells[2].Value = Convert.ToString(N);
+            dataGridMaterialView.Rows[0].Cells[3].Value = Convert.ToString(L);
 
 
 
 
-                     conn.Close();
+            conn.Close();
         }
 
         private void addMaterialBtn_Click(object sender, EventArgs e)
