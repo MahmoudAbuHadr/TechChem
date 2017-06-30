@@ -102,10 +102,10 @@ namespace inventoryManagement1._0
 
             reader.Read(); // Read() returns true if there is still a result line to read
             
-                F += Convert.ToInt32(reader["F"]);
-                G += Convert.ToInt32(reader["G"]);
-                N += Convert.ToInt32(reader["N"]);
-                L += Convert.ToInt32(reader["L"]);
+                F = Convert.ToInt32(reader["F"])+F;
+                G = Convert.ToInt32(reader["G"])+G;
+                N = Convert.ToInt32(reader["N"])+N;
+                L = Convert.ToInt32(reader["L"])+L;
                 reader.Close();
 
             
@@ -196,6 +196,15 @@ namespace inventoryManagement1._0
 
             }
 
+        }
+
+        private void productionHistoryBtn_Click(object sender, EventArgs e)
+        {
+            var currentForm = this;
+            productionHistoryForm f1 = new productionHistoryForm();
+
+            f1.Show();
+            currentForm.Close();
         }
     }
 }

@@ -57,6 +57,7 @@
             this.quantityTxt = new System.Windows.Forms.TextBox();
             this.addMaterialBtn = new System.Windows.Forms.Button();
             this.addProductBtn = new System.Windows.Forms.Button();
+            this.productionHistoryBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMaterialView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMaterialInput)).BeginInit();
             this.SuspendLayout();
@@ -264,11 +265,22 @@
             this.addProductBtn.UseVisualStyleBackColor = true;
             this.addProductBtn.Click += new System.EventHandler(this.addProductBtn_Click);
             // 
+            // productionHistoryBtn
+            // 
+            this.productionHistoryBtn.Location = new System.Drawing.Point(1113, 474);
+            this.productionHistoryBtn.Name = "productionHistoryBtn";
+            this.productionHistoryBtn.Size = new System.Drawing.Size(106, 33);
+            this.productionHistoryBtn.TabIndex = 12;
+            this.productionHistoryBtn.Text = "تاريخ الأنتاج";
+            this.productionHistoryBtn.UseVisualStyleBackColor = true;
+            this.productionHistoryBtn.Click += new System.EventHandler(this.productionHistoryBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1359, 519);
+            this.Controls.Add(this.productionHistoryBtn);
             this.Controls.Add(this.addProductBtn);
             this.Controls.Add(this.addMaterialBtn);
             this.Controls.Add(this.quantityTxt);
@@ -311,6 +323,7 @@
         private System.Windows.Forms.TextBox quantityTxt;
         private System.Windows.Forms.Button addMaterialBtn;
         private System.Windows.Forms.Button addProductBtn;
+        private System.Windows.Forms.Button productionHistoryBtn;
     }
 }
 
