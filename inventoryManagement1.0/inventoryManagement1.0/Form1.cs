@@ -51,6 +51,11 @@ namespace inventoryManagement1._0
 
 
             conn.Close();
+            productsCombo.Items.Add("A");
+            productsCombo.Items.Add("B");
+            productsCombo.Items.Add("C");
+            productsCombo.Items.Add("D");
+
         }
 
         private void addMaterialBtn_Click(object sender, EventArgs e)
@@ -116,6 +121,80 @@ namespace inventoryManagement1._0
 
 
             conn.Close();
+
+        }
+
+        private void addProductBtn_Click(object sender, EventArgs e)
+        {
+
+            int productIdx = productsCombo.SelectedIndex;
+            string product = productsCombo.Items[productIdx].ToString();
+            string date = dateTxt.Text;
+            int batchNo = Convert.ToInt32(batchTxt.Text);
+            int quantity = Convert.ToInt32(quantityTxt.Text);
+
+            
+
+
+           if (product == "A") {
+                float fp = .5F;
+                float gp = .2F;
+                float np = .1F;
+                float lp = .05F;
+
+                int f = Convert.ToInt32( quantity * fp);
+                int g = Convert.ToInt32(quantity * gp);
+                int n = Convert.ToInt32(quantity * np);
+                int l = Convert.ToInt32(quantity * lp);
+
+                SQLiteConnection conn; // Declare the SQLiteConnection-Object
+                conn = new SQLiteConnection(); // Create an instance of the object
+                string dataSourcePath = Directory.GetCurrentDirectory() + "\\techChem.db";
+                conn.ConnectionString = "Data Source= " + dataSourcePath + ";Version=3;"; // Set the ConnectionString
+                conn.Open(); // Open the connection. Now you can fire SQL-Queries
+                var sql_cmd = conn.CreateCommand();
+
+                /*sql_cmd.CommandText = "CREATE TABLE currentInventory ( id INTEGER PRIMARY KEY, F INTEGER, G INTEGER, N INTEGER, L INTEGER); CREATE TABLE inventory ( id INTEGER PRIMARY KEY ,date TEXT NOT NULL , F INTEGER NOT NULL, G INTEGER NOT NULL, N INTEGER NOT NULL, L INTEGER NOT NULL );CREATE TABLE sales ( date TEXT NOT NULL, batchNo INTEGER NOT NULL UNIQUE, product TEXT NOT NULL, quantity INTEGER NOT NULL, PRIMARY KEY(batchNo) )";
+                sql_cmd.ExecuteNonQuery();*/ //create new empty database
+
+                sql_cmd.CommandText = "insert into sales (date,batchNo,product,quantity) values ( '" + date + "'," + batchNo + ",'A'," + quantity +");";
+                sql_cmd.ExecuteNonQuery();
+
+
+
+
+                int F = 0, G = 0, N = 0, L = 0;
+                var queryCmd = conn.CreateCommand();
+
+                queryCmd.CommandText = "SELECT * FROM currentInventory;";
+
+                // Now the SQLiteCommand object can give us a DataReader-Object:
+                var reader = queryCmd.ExecuteReader();
+
+                reader.Read(); // Read() returns true if there is still a result line to read
+
+                F = Convert.ToInt32(reader["F"])-f;
+                G = Convert.ToInt32(reader["G"])-g;
+                N = Convert.ToInt32(reader["N"])-n;
+                L = Convert.ToInt32(reader["L"])-l;
+                reader.Close();
+
+
+
+
+                sql_cmd.CommandText = "UPDATE currentInventory SET F = " + Convert.ToString(F) + ", G = " + Convert.ToString(G) + ",N = " + Convert.ToString(N) + ",L = " + Convert.ToString(L) + " WHERE id = 1;";
+                sql_cmd.ExecuteNonQuery();
+
+                dataGridMaterialView.Rows[0].Cells[0].Value = Convert.ToString(F);
+                dataGridMaterialView.Rows[0].Cells[1].Value = Convert.ToString(G);
+                dataGridMaterialView.Rows[0].Cells[2].Value = Convert.ToString(N);
+                dataGridMaterialView.Rows[0].Cells[3].Value = Convert.ToString(L);
+
+
+                conn.Close();
+
+
+            }
 
         }
     }

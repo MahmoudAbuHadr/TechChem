@@ -262,6 +262,7 @@
             this.addProductBtn.TabIndex = 11;
             this.addProductBtn.Text = "إنتاج";
             this.addProductBtn.UseVisualStyleBackColor = true;
+            this.addProductBtn.Click += new System.EventHandler(this.addProductBtn_Click);
             // 
             // Form1
             // 
