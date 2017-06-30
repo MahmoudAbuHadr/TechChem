@@ -200,11 +200,9 @@ namespace inventoryManagement1._0
 
         private void productionHistoryBtn_Click(object sender, EventArgs e)
         {
-            var currentForm = this;
+            this.Hide();
             productionHistoryForm f1 = new productionHistoryForm();
-
             f1.Show();
-            currentForm.Close();
         }
     }
 }
